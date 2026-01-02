@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useReducer, useEffect, ReactNode } from 'react';
 import { List, ListItem, KanbanColumn, AppData, TagMetadata } from '@/types/list.types';
 import { storage } from '@/utils/storage';
 import { useDebouncedSave } from '@/hooks/useDebouncedSave';

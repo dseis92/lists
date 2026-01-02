@@ -39,7 +39,7 @@ export default function ShoppingItem({ item, listId, visualStyle }: ShoppingItem
 
   return (
     <motion.div
-      variants={itemAnimation}
+      {...itemAnimation}
       whileHover={hoverAnimation}
       layout
       className="group bg-white"

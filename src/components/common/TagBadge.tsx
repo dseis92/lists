@@ -1,78 +1,94 @@
-import { motion } from 'framer-motion';
-import { X } from 'lucide-react';
-import { getTagColor, getTagBackgroundColor } from '@/utils/tagColors';
+import type { MouseEvent } from 'react';
 
-interface TagBadgeProps {
+export type TagBadgeSize = 'sm' | 'md' | 'lg';
+
+export type TagBadgeProps = {
   tag: string;
-  onRemove?: () => void;
-  onClick?: () => void;
+  selected?: boolean;
+  size?: TagBadgeSize;
   count?: number;
-  size?: 'sm' | 'md';
+  onClick?: (tag: string) => void;
+  onRemove?: (tag: string) => void;
+  className?: string;
+};
+
+function cx(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(' ');
 }
+
+const SIZE_STYLES: Record<TagBadgeSize, string> = {
+  sm: 'px-2 py-0.5 text-xs',
+  md: 'px-2 py-1 text-xs',
+  lg: 'px-3 py-1.5 text-sm',
+};
 
 export function TagBadge({
   tag,
-  onRemove,
-  onClick,
-  count,
+  selected = false,
   size = 'md',
+  count,
+  onClick,
+  onRemove,
+  className = '',
 }: TagBadgeProps) {
-  const color = getTagColor(tag);
-  const bgColor = getTagBackgroundColor(color);
-
-  const sizeClasses = {
-    sm: 'text-xs px-2 py-0.5',
-    md: 'text-sm px-3 py-1',
+  const handleClick = (_e: MouseEvent) => {
+    _e.stopPropagation();
+    onClick?.(tag);
   };
 
-  const handleClick = (e: React.MouseEvent) => {
-    if (onClick) {
-      onClick();
-    }
+  const handleRemove = (_e: MouseEvent) => {
+    _e.stopPropagation();
+    onRemove?.(tag);
   };
 
-  const handleRemove = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (onRemove) {
-      onRemove();
-    }
-  };
+  const base = 'inline-flex items-center gap-2 rounded-full transition';
+  const state = selected
+    ? 'bg-zinc-900 text-white'
+    : 'bg-zinc-100 text-zinc-900 hover:bg-zinc-200';
 
   return (
-    <motion.span
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.8 }}
-      whileHover={{ scale: onClick ? 1.05 : 1 }}
-      className={`inline-flex items-center gap-1 rounded-full font-medium transition-all ${sizeClasses[size]} ${
-        onClick ? 'cursor-pointer' : ''
-      }`}
-      style={{
-        backgroundColor: bgColor,
-        color: color,
-        border: `1px solid ${color}40`,
-      }}
+    <button
+      type="button"
       onClick={handleClick}
+      className={cx(base, state, SIZE_STYLES[size], className)}
+      aria-pressed={selected}
     >
-      <span>{tag}</span>
+      <span className="truncate">{tag}</span>
 
-      {count !== undefined && (
+      {typeof count === 'number' ? (
         <span
-          className="text-xs opacity-70 font-normal"
+          className={cx(
+            'min-w-[1.25rem] rounded-full px-1 text-[10px] leading-4 text-center',
+            selected ? 'bg-white/20 text-white' : 'bg-zinc-200 text-zinc-800'
+          )}
         >
-          ({count})
+          {count}
         </span>
-      )}
+      ) : null}
 
-      {onRemove && (
-        <button
+      {onRemove ? (
+        <span
+          role="button"
+          tabIndex={0}
           onClick={handleRemove}
-          className="ml-0.5 hover:bg-black/10 rounded-full p-0.5 transition-colors"
-          aria-label={`Remove ${tag} tag`}
+          onKeyDown={(ev) => {
+            if (ev.key === 'Enter' || ev.key === ' ') {
+              ev.preventDefault();
+              onRemove(tag);
+            }
+          }}
+          className={cx(
+            'ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full text-[12px] leading-none',
+            selected ? 'hover:bg-white/20' : 'hover:bg-zinc-300'
+          )}
+          aria-label={`Remove ${tag}`}
+          title="Remove"
         >
-          <X size={size === 'sm' ? 12 : 14} />
-        </button>
-      )}
-    </motion.span>
+          ×
+        </span>
+      ) : null}
+    </button>
   );
 }
+
+export default TagBadge;

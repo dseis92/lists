@@ -1,4 +1,4 @@
-import { AppData, List } from '@/types/list.types';
+import { AppData } from '@/types/list.types';
 
 const STORAGE_KEY = 'lists-app-data';
 const STORAGE_VERSION = '2.0';

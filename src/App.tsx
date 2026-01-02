@@ -1,23 +1,9 @@
-import { ThemeProvider } from './contexts/ThemeContext';
-import { ListsProvider } from './contexts/ListsContext';
-import AppHeader from './components/layout/AppHeader';
-import Sidebar from './components/layout/Sidebar';
-import ListContainer from './components/layout/ListContainer';
+import AppShell from '@/components/layout/AppShell';
 
-function App() {
+export default function App() {
   return (
-    <ThemeProvider>
-      <ListsProvider>
-        <div className="flex flex-col h-screen overflow-hidden">
-          <AppHeader />
-          <div className="flex flex-1 overflow-hidden">
-            <Sidebar />
-            <ListContainer />
-          </div>
-        </div>
-      </ListsProvider>
-    </ThemeProvider>
+    <AppShell title="Lists">
+      {/* TODO: put your existing app UI here (routes / main UI) */}
+    </AppShell>
   );
 }
-
-export default App;

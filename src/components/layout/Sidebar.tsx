@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Plus, CheckSquare, ListOrdered, List as ListIcon, Columns, ShoppingCart, Target, Grid3x3, Clock, StickyNote, Filter, X } from 'lucide-react';
+import { Plus, CheckSquare, ListOrdered, List as ListIcon, Columns, ShoppingCart, Target, Grid3x3, Clock, StickyNote, Filter } from 'lucide-react';
 import { useLists } from '@/contexts/ListsContext';
 import { List, ListType } from '@/types/list.types';
 import { nanoid } from 'nanoid';
@@ -20,7 +20,7 @@ const LIST_TYPE_ICONS = {
 };
 
 export default function Sidebar() {
-  const { state, addList, setActiveList, syncTags } = useLists();
+  const { state, addList, setActiveList } = useLists();
   const [newListName, setNewListName] = useState('');
   const [selectedType, setSelectedType] = useState<ListType>('todo');
   const [isCreating, setIsCreating] = useState(false);

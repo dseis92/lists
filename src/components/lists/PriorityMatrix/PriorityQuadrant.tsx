@@ -18,7 +18,7 @@ interface PriorityQuadrantProps {
   visualStyle: VisualStyle;
 }
 
-export default function PriorityQuadrant({ quadrant, items, listId, visualStyle }: PriorityQuadrantProps) {
+export default function PriorityQuadrant({ quadrant, items, listId, visualStyle: _visualStyle }: PriorityQuadrantProps) {
   const { updateItem, deleteItem } = useLists();
 
   const handleToggle = (itemId: string, currentStatus: boolean) => {

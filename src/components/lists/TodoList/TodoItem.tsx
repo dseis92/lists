@@ -30,7 +30,7 @@ export default function TodoItem({ item, listId, visualStyle }: TodoItemProps) {
 
   return (
     <motion.div
-      variants={itemAnimation}
+      {...itemAnimation}
       whileHover={hoverAnimation}
       layout
       className="group bg-white"

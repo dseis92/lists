@@ -10,7 +10,7 @@ import { EmptyState } from '../../common/EmptyState';
 import { TagInput } from '../../common/TagInput';
 import { VisualStylePicker } from '../../common/VisualStylePicker';
 import { getVisualStyle } from '@/utils/visualStyles';
-import { CONTAINER_ANIMATIONS, getItemAnimation } from '@/utils/animations';
+import { CONTAINER_ANIMATIONS } from '@/utils/animations';
 
 interface TodoListProps {
   list: List;

@@ -68,7 +68,7 @@ export default function HabitItem({ item, listId, visualStyle }: HabitItemProps)
 
   return (
     <motion.div
-      variants={itemAnimation}
+      {...itemAnimation}
       whileHover={hoverAnimation}
       layout
       className="group bg-white"

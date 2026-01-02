@@ -17,7 +17,7 @@ const DEFAULT_COLUMNS: KanbanColumnType[] = [
 
 export default function KanbanBoard({ list }: KanbanBoardProps) {
   const { state, setKanbanColumns, deleteList } = useLists();
-  const [columns, setColumns] = useState<KanbanColumnType[]>(
+  const [columns, _setColumns] = useState<KanbanColumnType[]>(
     state.kanbanColumns[list.id] || DEFAULT_COLUMNS
   );
 
